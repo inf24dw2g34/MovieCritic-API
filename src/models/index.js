@@ -3,7 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const { Sequelize, DataTypes } = require('sequelize');
 
-const sequelize = new Sequelize(dbData);
+const env = process.env.NODE_ENV || 'development';
+const sequelize = new Sequelize(dbData[env]);
 const db = {};
 
 // Load each model.js file
