@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Review = require('../models/Review');
-const Like = require('../models/Like');
-const User = require('../models/User');
+const {Review, Like, User} = require('../models')
 
 /*
 function ensureAdmin(req, res, next) {

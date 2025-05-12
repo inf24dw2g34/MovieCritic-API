@@ -17,7 +17,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    store: new SequelizeStore({ db: db.sequelize }),
+    store: new SequelizeStore({ db: db.sequelize, tableName: 'sessions' }),
 }));
 
 app.use(passport.initialize());

@@ -10,7 +10,12 @@ module.exports = (sequelize, DataTypes) => {
                 isIn: [['user', 'admin']],
             },
         },
-    });
+    },
+        {
+            tableName: 'users',
+            freezetableTableName: true,
+        }
+);
 
     return User;
 }
