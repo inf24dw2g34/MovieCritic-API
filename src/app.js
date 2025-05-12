@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const passport = require('./config/passport');
-const sequelize = require('./models');
+const db = require('./models');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -17,7 +17,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    store: new SequelizeStore({ db: sequelize }),
+    store: new SequelizeStore({ db: db.sequelize }),
 }));
 
 app.use(passport.initialize());
@@ -37,6 +37,6 @@ app.use((req, res) => {
     });
 });
 
-sequelize.sync({force: false}).then(() => {
+db.sequelize.sync({force: false}).then(() => {
     app.listen(3000, () => console.log('Server running on http://localhost:3000'));
 });

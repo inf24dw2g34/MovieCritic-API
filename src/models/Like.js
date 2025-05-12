@@ -1,12 +1,10 @@
-// models/Like.js
-const { DataTypes } = require('sequelize');
-const sequelize = require('./index');
-const User = require('./User');
-const Review = require('./Review');
+module.exports = (sequelize, DataTypes) => {
+    const Like = sequelize.define('Like', {});
 
-const Like = sequelize.define('Like', {});
+    Like.associate = (models) => {
+        models.User.belongsToMany(models.Review, { through: Like, as: 'LikedReviews' });
+        models.Review.belongsToMany(models.User, { through: Like, as: 'Likers' });
+    }
 
-User.belongsToMany(Review, { through: Like, as: 'LikedReviews' });
-Review.belongsToMany(User, { through: Like, as: 'Likers' });
-
-module.exports = Like;
+    return Like;
+}

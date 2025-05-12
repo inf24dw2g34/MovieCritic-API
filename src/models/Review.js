@@ -1,14 +1,13 @@
-// models/Review.js
-const { DataTypes } = require('sequelize');
-const sequelize = require('./index');
-const User = require('./User');
+module.exports = (sequelize, DataTypes) => {
+    const Review = sequelize.define('Review', {
+        movieTitle: DataTypes.STRING,
+        content: DataTypes.TEXT,
+    });
 
-const Review = sequelize.define('Review', {
-    movieTitle: DataTypes.STRING,
-    content: DataTypes.TEXT,
-});
+    Review.associate = (models) => {
+        Review.belongsTo(models.User, { foreignKey: 'userId' });
+        models.User.hasMany(Review, { foreignKey: 'userId' });
+    }
 
-Review.belongsTo(User, { foreignKey: 'userId' });
-User.hasMany(Review, { foreignKey: 'userId' });
-
-module.exports = Review;
+    return Review;
+}

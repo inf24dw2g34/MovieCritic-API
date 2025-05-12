@@ -1,8 +1,26 @@
-const { Sequelize } = require('sequelize');
+const dbData = require('../config/db');
+const fs = require('fs');
+const path = require('path');
+const { Sequelize, DataTypes } = require('sequelize');
 
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
-    host: 'localhost',
-    dialect: 'mysql',
+const sequelize = new Sequelize(dbData);
+const db = {};
+
+// Load each model.js file
+fs.readdirSync(__dirname)
+    .filter(file => file !== 'index.js' && file.endsWith('.js'))
+    .forEach(file => {
+        const model = require(path.join(__dirname, file))(sequelize, DataTypes);
+        db[model.name] = model;
+    });
+
+// Handle model associations
+Object.keys(db).forEach(modelName => {
+    if ('associate' in db[modelName]) {
+        db[modelName].associate(db);
+    }
 });
 
-module.exports = sequelize;
+db.sequelize = sequelize;
+
+module.exports = db;
