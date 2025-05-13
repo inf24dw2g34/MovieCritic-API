@@ -2,6 +2,8 @@ require('dotenv').config();
 
 const express = require('express');
 const session = require('express-session');
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocs = require("./config/swagger");
 const passport = require('./config/passport');
 const db = require('./models');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -25,6 +27,8 @@ app.use(passport.session());
 
 app.use(helmet());
 app.use(morgan('combined'));
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Routes
 app.use('/auth', require('./routes/auth'));

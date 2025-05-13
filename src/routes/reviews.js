@@ -19,6 +19,12 @@ function ensureAuth(req, res, next) {
   });
 }
 
+// Get all reviews
+router.get('/', async (req, res) => {
+  const reviews = await Review.findAll({ include: User });
+  res.json(reviews);
+});
+
 // Create review
 router.post('/', ensureAuth, async (req, res) => {
   const review = await Review.create({
@@ -52,12 +58,6 @@ router.post('/:id/like', ensureAuth, async (req, res) => {
 
   await review.addLiker(req.user); // through Like model
   res.send('Liked');
-});
-
-// Get all reviews
-router.get('/', async (req, res) => {
-  const reviews = await Review.findAll({ include: User });
-  res.json(reviews);
 });
 
 module.exports = router;
