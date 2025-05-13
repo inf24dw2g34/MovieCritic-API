@@ -18,9 +18,13 @@ module.exports = (sequelize, DataTypes) => {
     },
         {
             tableName: 'users',
-            freezetableTableName: true,
+            freezeTableName: true,
         }
 );
+
+    User.associate = (models) => {
+        User.hasMany(models.Review, { foreignKey: 'userId' });
+    }
 
     return User;
 }

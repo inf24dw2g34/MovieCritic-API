@@ -1,6 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
     const Review = sequelize.define('Review', {
-        movieTitle: DataTypes.STRING,
         content: DataTypes.TEXT,
     },
         {
@@ -9,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
         });
 
     Review.associate = (models) => {
+        Review.belongsTo(models.Movie, {foreignKey: 'movieId'});
         Review.belongsTo(models.User, { foreignKey: 'userId' });
-        models.User.hasMany(Review, { foreignKey: 'userId' });
     }
 
     return Review;
