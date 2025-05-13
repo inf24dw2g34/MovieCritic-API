@@ -1,0 +1,37 @@
+services:
+  api:
+    build: .
+    container_name: moviecritic_api
+    ports:
+      - "${PORT}:3000"
+    env_file:
+      - .env
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASS}
+      MYSQL_DATABASE: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h127.0.0.1 -P3306 -p${DB_PASS}"]
+      interval: 10s
+      timeout: 30s
+      retries: 10
+
+volumes:
+  mysql-data:
+
+networks:
+  app-network:
+    driver: bridge
