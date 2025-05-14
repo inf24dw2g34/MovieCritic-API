@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Movie.associate = (models) => {
         Movie.belongsTo(models.Director, { foreignKey: 'directorId' });
-        Movie.hasMany(models.Review, { foreignKey: 'movieId', onDelete: 'CASCADE' })
+        Movie.hasMany(models.Review, { foreignKey: 'movieId', onDelete: 'CASCADE' });
     }
 
     return Movie;
