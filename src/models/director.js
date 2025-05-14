@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     Director.associate = (models) => {
-        Director.hasMany(models.Movie, { foreignKey: 'directorId' })
+        Director.hasMany(models.Movie, { foreignKey: 'directorId' });
     }
 
     return Director;
