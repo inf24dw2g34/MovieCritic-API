@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const { faker } = require("@faker-js/faker");
 const { Director } = require("../models");

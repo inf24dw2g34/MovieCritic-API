@@ -27,7 +27,7 @@ module.exports = {
             return email;
         }
 
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 30; i++) {
             users.push({
                 googleId: generateUniqueGoogleId(),
                 name: faker.person.fullName(),
