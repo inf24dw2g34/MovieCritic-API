@@ -38,11 +38,11 @@ app.use('/reviews', require('./routes/reviews'));
 
 app.use((req, res) => {
     res.status(404).json({
-        message: 'Error: Not Found'
+        message: 'Not Found'
     });
 });
 
-db.sequelize.sync({alter: (process.env.NODE_ENV === 'development')}).then(() => {
+db.sequelize.sync({force: (process.env.NODE_ENV === 'development')}).then(() => {
     console.log('Database synced successfully.');
     app.listen(port, () => {
         console.log(`Server running on http://localhost:${port}`);

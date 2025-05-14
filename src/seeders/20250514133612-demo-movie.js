@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const { faker } = require("@faker-js/faker");
 const { Director } = require("../models");
@@ -17,6 +17,26 @@ module.exports = {
                 () => `${faker.person.firstName()}'s ${faker.word.noun()}`,
                 () => `${faker.word.verb()} and ${faker.word.verb()}`,
                 () => `Escape from ${faker.location.city()}`,
+                () =>
+                    `A Tale of ${faker.word.adjective()} ${faker.word.noun()}`,
+                () => `The Last ${faker.word.noun()}`,
+                () => `Beyond the ${faker.word.noun()}`,
+                () =>
+                    `Legend of the ${faker.word.adjective()} ${faker.word.noun()}`,
+                () =>
+                    `${faker.word.noun()} in the Time of ${faker.word.noun()}`,
+                () => `${faker.word.adjective()} Dreams`,
+                () => `The ${faker.word.noun()} Code`,
+                () => `My Life as a ${faker.word.noun()}`,
+                () =>
+                    `When ${faker.person.firstName()} Met ${faker.person.firstName()}`,
+                () => `The ${faker.word.noun()} That Could`,
+                () => `Nightfall in ${faker.location.city()}`,
+                () => `Chronicles of ${faker.person.lastName()}`,
+                () => `Finding ${faker.person.firstName()}`,
+                () => `${faker.word.adjective()} ${faker.word.noun()} Rising`,
+                () => `The Curse of the ${faker.word.noun()}`,
+                () => `Welcome to ${faker.location.city()}`,
             ];
 
             const randomStyle = faker.helpers.arrayElement(styles);
