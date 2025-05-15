@@ -35,6 +35,8 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 // Routes
 app.use('/auth', require('./routes/auth'));
 app.use('/reviews', require('./routes/reviews'));
+app.use('/movies', require('./routes/movies'));
+app.use('/directors', require('./routes/directors'));
 
 app.use((req, res) => {
     res.status(404).json({
@@ -42,7 +44,9 @@ app.use((req, res) => {
     });
 });
 
-db.sequelize.sync({force: (process.env.NODE_ENV === 'development')}).then(() => {
+db.sequelize.sync(
+    //    {force: (process.env.NODE_ENV === 'development')}
+    ).then(() => {
     console.log('Database synced successfully.');
     app.listen(port, () => {
         console.log(`Server running on http://localhost:${port}`);

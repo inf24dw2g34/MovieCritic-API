@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
             through: Like,
             foreignKey: "movieId",
             otherKey: "userId",
+            as: "Likes",
             onDelete: "CASCADE"
         });
     };
