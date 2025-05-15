@@ -1,28 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const review = require('../controllers/review.controller');
-
-/*
-function ensureAdmin(req, res, next) {
-    if (req.user && req.user.role === 'admin') {
-        return next();
-    }
-    res.status(403).send('Forbidden: Admins only');
-}
-*/
-
-function ensureAuth(req, res, next) {
-  if (req.isAuthenticated()) return next();
-  res.status(401).json({
-    message: 'Forbidden: Not Authenticated',
-  });
-}
+const { ensureAuth } = require('../middlewares/auth.middleware');
 
 // Get all reviews
 router.get('/', ensureAuth, review.getReviews);
 
 // Get :id review
-router.get('/:id', review.getReview);
+router.get('/:id', ensureAuth, review.getReview);
 
 // Create review
 router.post('/', ensureAuth, review.createReview);

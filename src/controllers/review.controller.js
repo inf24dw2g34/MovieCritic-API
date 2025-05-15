@@ -1,22 +1,48 @@
-const { Review } = require("../models");
-const { getReviewQueryOptions } = require("../utils/review.helpers");
+const { Review, Movie, User } = require("../models");
+const MOVIE_ATTRIBUTES = ["id", "title", "description", "year", "duration"];
 
 exports.getReviews = async (req, res) => {
     try {
-        const reviews = await Review.findAll(getReviewQueryOptions(req.user));
+        const reviews = await Review.findAll({
+            where: {
+                userId: req.user.id,
+            },
+            attributes: { exclude: ["movieId"] },
+            include: [
+                {
+                    model: Movie,
+                    attributes: MOVIE_ATTRIBUTES,
+                },
+            ],
+        });
 
         return res.status(200).json(reviews);
     } catch (error) {
         console.error(error);
         return res
             .status(500)
-            .json({ message: "An error occurred while fetching reviews." });
+            .json({ message: "An error occurred while fetching Reviews." });
     }
 };
 
 exports.getReview = async (req, res) => {
     try {
-        const review = await Review.findByPk(req.params.id, getReviewQueryOptions(req.user));
+        const review = await Review.findByPk(req.params.id, {
+            attributes: { exclude: ["userId", "movieId"] },
+            include: [
+                {
+                    model: Movie,
+                    attributes: MOVIE_ATTRIBUTES,
+                },
+                {
+                    model: User,
+                    attributes:
+                        req.user?.role === "admin"
+                            ? { exclude: [] }
+                            : ["id", "name", "profile_picture"],
+                },
+            ],
+        });
 
         if (!review)
             return res.status(404).json({ message: "Review not found." });
@@ -26,7 +52,7 @@ exports.getReview = async (req, res) => {
         console.error(error);
         return res
             .status(500)
-            .json({ message: "An error occurred while fetching the review." });
+            .json({ message: "An error occurred while fetching the Review." });
     }
 };
 
@@ -56,17 +82,17 @@ exports.createReview = async (req, res) => {
             });
 
         const review = await Review.create({
-            content: content,
-            rating: rating,
-            movieId: movieId,
+            content,
+            rating: rating || null, //optional
+            movieId,
             userId: req.user.id,
         });
-        res.status(201).json(review);
+        return res.status(201).json(review);
     } catch (error) {
         console.error(error);
         return res
             .status(500)
-            .json({ message: "An error occurred while creating the review." });
+            .json({ message: "An error occurred while creating the Review." });
     }
 };
 
@@ -86,7 +112,7 @@ exports.updateReview = async (req, res) => {
         if (!review)
             return res.status(404).json({ message: "Review not found." });
 
-        if (review.userId !== req.user.id && req.user?.role !== 'admin')
+        if (review.userId !== req.user.id && req.user?.role !== "admin")
             return res
                 .status(403)
                 .json({ message: "Forbidden: Not Authorized" });
@@ -95,12 +121,12 @@ exports.updateReview = async (req, res) => {
         review.rating = rating;
         await review.save();
 
-        res.status(200).json(review);
+        return res.status(200).json(review);
     } catch (error) {
         console.error(error);
         return res
             .status(500)
-            .json({ message: "An error occurred while updating the review." });
+            .json({ message: "An error occurred while updating the Review." });
     }
 };
 
@@ -111,7 +137,7 @@ exports.deleteReview = async (req, res) => {
         if (!review)
             return res.status(404).json({ message: "Review not found." });
 
-        if (review.userId !== req.user.id && req.user?.role !== 'admin')
+        if (review.userId !== req.user.id && req.user?.role !== "admin")
             return res
                 .status(403)
                 .json({ message: "Forbidden: Not Authorized" });
@@ -124,6 +150,6 @@ exports.deleteReview = async (req, res) => {
         console.error(error);
         return res
             .status(500)
-            .json({ message: "An error occurred while deleting the review." });
+            .json({ message: "An error occurred while deleting the Review." });
     }
 };
