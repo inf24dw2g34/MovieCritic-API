@@ -13,7 +13,8 @@ passport.use(new GoogleStrategy({
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: process.env.GOOGLE_CALLBACK_URL,
 }, async (accessToken, refreshToken, profile, done) => {
-    console.log(profile);
+    console.log("Authenticated User details: ");
+    console.log(JSON.stringify(profile, null, 2));
     const [user] = await User.findOrCreate({
         where: { googleId: profile.id },
         defaults: {

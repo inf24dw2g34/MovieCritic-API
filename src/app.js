@@ -12,7 +12,6 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const helmet = require('helmet');
 const morgan = require('morgan');
 
-
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -38,6 +37,21 @@ app.use('/reviews', require('./routes/reviews'));
 app.use('/movies', require('./routes/movies'));
 app.use('/directors', require('./routes/directors'));
 app.use('/users', require('./routes/users'));
+
+// Root route
+app.get('/', (req, res) => {
+    res.status(200).json({
+        message: "Welcome to the MovieCritic API!",
+        documentation: `${req.protocol}://${req.get('host')}/docs`,
+        endpoints: {
+            auth: "/auth",
+            reviews: "/reviews",
+            movies: "/movies",
+            directors: "/directors",
+            users: "/users"
+        }
+    });
+});
 
 app.use((req, res) => {
     res.status(404).json({
