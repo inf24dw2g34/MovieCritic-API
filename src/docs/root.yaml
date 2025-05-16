@@ -1,0 +1,39 @@
+paths:
+  /:
+    get:
+      tags:
+        - General
+      summary: Welcome to the MovieCritic API
+      description: Provides a welcome message and links to the API documentation and available endpoints.
+      responses:
+        200:
+          description: Welcome message with API details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Welcome to the MovieCritic API!"
+                  documentation:
+                    type: string
+                    example: "http://localhost:3000/docs"
+                  endpoints:
+                    type: object
+                    properties:
+                      auth:
+                        type: string
+                        example: "/auth"
+                      reviews:
+                        type: string
+                        example: "/reviews"
+                      movies:
+                        type: string
+                        example: "/movies"
+                      directors:
+                        type: string
+                        example: "/directors"
+                      users:
+                        type: string
+                        example: "/users"

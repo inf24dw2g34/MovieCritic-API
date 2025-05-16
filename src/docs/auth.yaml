@@ -1,0 +1,40 @@
+tags:
+  - name: Authentication
+    description: Endpoints for user authentication
+
+paths:
+  /auth/google:
+    get:
+      tags:
+        - Authentication
+      summary: Authenticate with Google
+      description: Redirects the user to Google's OAuth2 authentication page.
+      responses:
+        302:
+          description: Redirects to Google's OAuth2 authentication page
+        500:
+          description: Internal server error
+
+  /auth/google/callback:
+    get:
+      tags:
+        - Authentication
+      summary: Google OAuth2 callback
+      description: Handles the callback from Google's OAuth2 authentication. Redirects the user to `/reviews` on success or `/` on failure.
+      responses:
+        302:
+          description: Redirects to `/reviews` on success or `/` on failure
+        500:
+          description: Internal server error
+
+  /auth/logout:
+    get:
+      tags:
+        - Authentication
+      summary: Logout the user
+      description: Logs out the authenticated user and redirects them to the root (`/`) route.
+      responses:
+        302:
+          description: Redirects to the root (`/`) route
+        500:
+          description: Internal server error

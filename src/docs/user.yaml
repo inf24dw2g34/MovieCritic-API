@@ -1,0 +1,263 @@
+paths:
+  /users:
+    get:
+      tags:
+        - Users
+      summary: Get all users
+      description: Retrieve a list of all users. Only admins can access this endpoint.
+      security:
+        - googleOAuth: ["email", "profile"]
+      responses:
+        200:
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden (Admins only)
+        500:
+          description: Internal server error
+
+  /users/{id}:
+    get:
+      tags:
+        - Users
+      summary: Get a user by ID
+      description: Retrieve details of a specific user by their ID. Admins can view all user details, while regular users can only view their own details.
+      security:
+        - googleOAuth: ["email", "profile"]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the user
+      responses:
+        200:
+          description: User details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden (Not authorized to access this user)
+        404:
+          description: User not found
+        500:
+          description: Internal server error
+    patch:
+      tags:
+        - Users
+      summary: Update a user
+      description: Update the details of a user. Admins can update any user, while regular users can only update their own details.
+      security:
+        - googleOAuth: ["email", "profile"]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: John Doe
+                profile_picture:
+                  type: string
+                  example: https://example.com/avatar.jpg
+                role:
+                  type: string
+                  example: admin
+                  description: Only admins can update the role.
+      responses:
+        200:
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        400:
+          description: Bad request (e.g., invalid role)
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden (Not authorized to update this user)
+        404:
+          description: User not found
+        500:
+          description: Internal server error
+    delete:
+      tags:
+        - Users
+      summary: Delete a user
+      description: Delete a user by their ID. Only admins can perform this action.
+      security:
+        - googleOAuth: ["email", "profile"]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the user
+      responses:
+        200:
+          description: User deleted successfully
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden (Admins only)
+        404:
+          description: User not found
+        500:
+          description: Internal server error
+
+  /users/{id}/reviews:
+    get:
+      tags:
+        - Users
+      summary: Get reviews by a user
+      description: Retrieve all reviews created by a specific user.
+      security:
+        - googleOAuth: ["email", "profile"]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the user
+      responses:
+        200:
+          description: A list of reviews created by the specified user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Review"
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden (Not authorized to access this user's reviews)
+        404:
+          description: User not found
+        500:
+          description: Internal server error
+
+  /users/{id}/likes:
+    get:
+      tags:
+        - Users
+      summary: Get likes by a user
+      description: Retrieve all movies liked by a specific user.
+      security:
+        - googleOAuth: ["email", "profile"]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the user
+      responses:
+        200:
+          description: A list of movies liked by the specified user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Movie"
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden (Not authorized to access this user's likes)
+        404:
+          description: User not found
+        500:
+          description: Internal server error
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: John Doe
+        profile_picture:
+          type: string
+          example: https://example.com/avatar.jpg
+        role:
+          type: string
+          example: admin
+        createdAt:
+          type: string
+          format: date-time
+          example: 2025-05-14T12:00:00.000Z
+        updatedAt:
+          type: string
+          format: date-time
+          example: 2025-05-14T12:00:00.000Z
+
+    Review:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        content:
+          type: string
+          example: "Amazing movie!"
+        rating:
+          type: integer
+          example: 5
+        userId:
+          type: integer
+          example: 2
+        movieId:
+          type: integer
+          example: 1
+        createdAt:
+          type: string
+          format: date-time
+          example: 2025-05-14T12:00:00.000Z
+        updatedAt:
+          type: string
+          format: date-time
+          example: 2025-05-14T12:00:00.000Z
+
+    Movie:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: Inception
+        year:
+          type: integer
+          example: 2010
+        duration:
+          type: integer
+          example: 148
