@@ -12,7 +12,7 @@ router.get("/:id", ensureAuth, user.getUser);
 // Edit :id user
 router.patch("/:id", ensureAuth, user.updateUser);
 
-// Delete :id user [ADMIN ONLY]
+// Delete :id user
 router.delete("/:id", ensureAuth, ensureAdmin, user.deleteUser);
 
 // Get :id user Reviews
