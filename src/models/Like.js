@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
             through: Like,
             foreignKey: "userId",
             otherKey: "movieId",
+            as: "Likes",
             onDelete: "CASCADE"
         });
         models.Movie.belongsToMany(models.User, {

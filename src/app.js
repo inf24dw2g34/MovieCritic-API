@@ -37,6 +37,7 @@ app.use('/auth', require('./routes/auth'));
 app.use('/reviews', require('./routes/reviews'));
 app.use('/movies', require('./routes/movies'));
 app.use('/directors', require('./routes/directors'));
+app.use('/users', require('./routes/users'));
 
 app.use((req, res) => {
     res.status(404).json({
