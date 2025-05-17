@@ -1,26 +1,25 @@
 services:
   api:
-    build: .
+    image: inf24dw2g34/moviecritic-api
     container_name: moviecritic_api
     ports:
       - "3000:${PORT}"
     env_file:
       - .env
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     networks:
       - app-network
 
   mysql:
-    image: mysql:8.0
+    image: inf24dw2g34/moviecritic-db
     container_name: mysql_db
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASS}
       MYSQL_DATABASE: ${DB_NAME}
     ports:
       - "3306:3306"
-    volumes:
-      - mysql-data:/var/lib/mysql
     networks:
       - app-network
     healthcheck:
@@ -28,9 +27,6 @@ services:
       interval: 10s
       timeout: 30s
       retries: 10
-
-volumes:
-  mysql-data:
 
 networks:
   app-network:
