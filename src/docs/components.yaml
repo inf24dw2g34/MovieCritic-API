@@ -1,0 +1,117 @@
+components:
+  schemas:
+    Director:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Christopher Nolan
+        createdAt:
+          type: string
+          format: date-time
+          example: 2025-05-14T12:00:00.000Z
+        updatedAt:
+          type: string
+          format: date-time
+          example: 2025-05-14T12:00:00.000Z
+    Movie:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: Inception
+        description:
+          type: string
+          example: A mind-bending thriller about dreams within dreams.
+        year:
+          type: integer
+          example: 2010
+        duration:
+          type: integer
+          example: 148
+        directorId:
+          type: integer
+          example: 1
+        createdAt:
+          type: string
+          format: date-time
+          example: 2025-05-14T12:00:00.000Z
+        updatedAt:
+          type: string
+          format: date-time
+          example: 2025-05-14T12:00:00.000Z
+    Review:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        content:
+          type: string
+          example: "Amazing movie!"
+        rating:
+          type: integer
+          example: 5
+        userId:
+          type: integer
+          example: 2
+        movieId:
+          type: integer
+          example: 1
+        createdAt:
+          type: string
+          format: date-time
+          example: 2025-05-14T12:00:00.000Z
+        updatedAt:
+          type: string
+          format: date-time
+          example: 2025-05-14T12:00:00.000Z
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          example: email@gmail.com
+        profile_picture:
+          type: string
+          example: https://example.com/avatar.jpg
+        role:
+          type: string
+          example: admin
+        createdAt:
+          type: string
+          format: date-time
+          example: 2025-05-14T12:00:00.000Z
+        updatedAt:
+          type: string
+          format: date-time
+          example: 2025-05-14T12:00:00.000Z
+    Like:
+      type: object
+      properties:
+        userId:
+          type: integer
+          description: ID of the user who liked the movie
+        movieId:
+          type: integer
+          description: ID of the liked movie
+        createdAt:
+          type: string
+          format: date-time
+          description: When the like was created
+        updatedAt:
+          type: string
+          format: date-time
+          description: When the like was last updated
