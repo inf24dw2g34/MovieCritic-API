@@ -1,6 +1,7 @@
 # MovieCritic-API
 
 Repository to host the project developed for 'Web Development 2', a 2nd year subject at UMAIA.
+
 Developed by Group inf24dw2g34: [@jbbernardo7](https://github.com/jbbernardo7)
 
 ## Project Description
