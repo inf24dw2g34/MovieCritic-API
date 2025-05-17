@@ -12,6 +12,27 @@ exports.getUsers = async (req, res) => {
     }
 };
 
+exports.getMe = async (req, res) => {
+    try {
+        const attributes =
+            req.user?.role === "admin"
+                ? undefined
+                : ["id", "name", "email", "profile_picture"];
+        const user = await User.findByPk(req.user.id, {
+            attributes: attributes,
+        });
+
+        if (!user) return res.status(404).json({ message: "User not found." });
+
+        return res.status(200).json(user);
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(500)
+            .json({ message: "An error occurred while fetching User." });
+    }
+};
+
 exports.getUser = async (req, res) => {
     try {
         const attributes =
@@ -66,10 +87,10 @@ exports.updateUser = async (req, res) => {
             currentUser.role === "admin"
                 ? user
                 : {
-                      id: user.id,
-                      name: user.name,
-                      profile_picture: user.profile_picture,
-                  };
+                    id: user.id,
+                    name: user.name,
+                    profile_picture: user.profile_picture,
+                };
 
         return res.status(200).json(safeUser);
     } catch (error) {

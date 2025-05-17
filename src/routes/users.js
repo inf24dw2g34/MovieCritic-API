@@ -6,6 +6,9 @@ const { ensureAuth, ensureAdmin } = require("../middlewares/auth.middleware");
 // Get all users
 router.get("/", ensureAuth, ensureAdmin, user.getUsers);
 
+// Get authenticated User
+router.get("/me", ensureAuth, user.getMe);
+
 // Get :id user
 router.get("/:id", ensureAuth, user.getUser);
 
