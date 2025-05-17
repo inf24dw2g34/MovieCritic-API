@@ -1,6 +1,5 @@
 require('dotenv').config();
 const port = process.env.PORT || 3000;
-const host_port = process.env.HOST_PORT || port;
 
 const express = require('express');
 const session = require('express-session');
@@ -42,9 +41,9 @@ app.use('/users', require('./routes/users'));
 app.get('/', (req, res) => {
     res.status(200).json({
         message: "Welcome to the MovieCritic API!",
-        documentation: `${req.protocol}://${req.get('host')}/docs`,
+        documentation: "/docs",
         endpoints: {
-            auth: "/auth",
+            auth: "/auth/google",
             reviews: "/reviews",
             movies: "/movies",
             directors: "/directors",
@@ -62,9 +61,8 @@ app.use((req, res) => {
 db.sequelize.sync(
     //    {force: (process.env.NODE_ENV === 'development')}
     ).then(() => {
-    console.log('Database synced successfully.');
+    console.log('\nDatabase synced successfully.');
     app.listen(port, () => {
         console.log(`Server running on http://localhost:${port}`);
-        console.log(`Accessible via http://localhost:${host_port}`);
     });
 });
