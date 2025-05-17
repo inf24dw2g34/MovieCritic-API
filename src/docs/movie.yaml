@@ -1,7 +1,3 @@
-tags:
-  - name: Movies
-    description: Endpoints for managing movies
-
 paths:
   /movies:
     get:
@@ -231,6 +227,70 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/User"
+        401:
+          description: Unauthorized
+        404:
+          description: Movie not found
+        500:
+          description: Internal server error
+
+    post:
+      tags:
+        - Movies
+      summary: Add a like to a movie
+      description: Allows an authenticated user to like a specific movie.
+      security:
+        - googleOAuth: ["email", "profile"]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the movie to like
+      responses:
+        200:
+          description: Movie liked successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Movie liked successfully."
+        401:
+          description: Unauthorized
+        404:
+          description: Movie not found
+        500:
+          description: Internal server error
+
+    delete:
+      tags:
+        - Movies
+      summary: Remove a like from a movie
+      description: Allows an authenticated user to unlike a specific movie.
+      security:
+        - googleOAuth: ["email", "profile"]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the movie to unlike
+      responses:
+        200:
+          description: Movie unliked successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Movie unliked successfully."
         401:
           description: Unauthorized
         404:

@@ -7,7 +7,7 @@ module.exports = {
   },
   servers: [
     {
-      url: `http://localhost:${process.env.HOST_PORT}`,
+      url: `http://localhost:3000`,
       description: 'Local server',
     },
   ],
@@ -31,6 +31,32 @@ module.exports = {
   security: [
     {
       googleOAuth: ['email', 'profile'],
+    },
+  ],
+  tags: [
+    {
+      name: 'General',
+      description: 'General endpoints',
+    },
+    {
+      name: 'Authentication',
+      description: 'Endpoints for user authentication',
+    },
+    {
+      name: 'Directors',
+      description: 'Endpoints for director management',
+    },
+    {
+      name: 'Movies',
+      description: 'Endpoints for movie management',
+    },
+    {
+      name: 'Reviews',
+      description: 'Endpoints for review management',
+    },
+    {
+      name: 'Users',
+      description: 'Endpoints for user management',
     },
   ],
 };

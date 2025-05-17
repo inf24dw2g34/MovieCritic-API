@@ -1,7 +1,3 @@
-tags:
-  - name: Reviews
-    description: Endpoints for managing reviews
-
 paths:
   /reviews:
     get:

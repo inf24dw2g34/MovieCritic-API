@@ -1,7 +1,3 @@
-tags:
-  - name: Authentication
-    description: Endpoints for user authentication
-
 paths:
   /auth/google:
     get:
