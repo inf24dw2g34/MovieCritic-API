@@ -76,6 +76,7 @@ After running the project, access the Swagger docs at:
 * Swagger
 * dotenv
 * morgan
+* @faker-js/faker
 
 ## DockerHub
 
