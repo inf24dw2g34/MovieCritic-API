@@ -2,7 +2,7 @@
 
 ## Introduction
 
-MovieCritic API is a RESTful web service designed to manage and share movie reviews. It enables users to authenticate, review movies, like their favorites, and manage movie-related data in a secure and structured way.
+MovieCritic API is a RESTful web service designed to manage and share movie reviews. It enables users to authenticate, review movies, like their favorites, and manage movie-related data.
 
 ## What Does the API Offer?
 
