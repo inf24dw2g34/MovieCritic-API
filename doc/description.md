@@ -1,4 +1,4 @@
-# MovieCritic API — Presentation & Description
+# MovieCritic API
 
 ## Introduction
 
@@ -28,7 +28,7 @@ MovieCritic API is a RESTful web service designed to manage and share movie revi
   Interactive API docs are available via Swagger UI at `/docs`.
 
 - **Seeders:**  
-  The project includes database seeders to populate the database with initial data (such as users, movies, directors, and reviews). This makes it easy to test and demonstrate the API with realistic sample data right after setup.
+  The project includes database seeders to populate the database with initial data (such as users, movies, directors, and reviews).
 
 ## How Does It Work?
 
