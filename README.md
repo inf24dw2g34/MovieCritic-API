@@ -55,11 +55,12 @@ After running the project, access the Swagger docs at:
 ## Repository Organization
 
 * Source Code: [src](src/)
+* Report Chapters: [doc](doc/)
 * Postman Collection: [collection](postman/)
 * Open API Documentation: [docs](src/docs/)
 
 ## Gallery
-![Documentation](images/openapi.PNG)
+![Documentation](doc/images/openapi.PNG)
 
 ## Technologies
 
@@ -78,7 +79,7 @@ After running the project, access the Swagger docs at:
 * morgan
 * @faker-js/faker
 
-## DockerHub
+## DockerHub Images
 
 API Image: [inf24dw2g34/moviecritic-api](https://hub.docker.com/repository/docker/inf24dw2g34/moviecritic-api/general)
 Database Image: [inf24dw2g34/moviecritic-db](https://hub.docker.com/repository/docker/inf24dw2g34/moviecritic-db/general) (Contains preloaded data)
