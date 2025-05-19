@@ -55,11 +55,11 @@ After running the project, access the Swagger docs at:
 ## Repository Organization
 
 * Source Code: [src](src/)
-* Passport Collection: [collection](passport/)
+* Postman Collection: [collection](postman/)
 * Open API Documentation: [docs](src/docs/)
 
 ## Gallery
-todo
+![Documentation](images/openapi.PNG)
 
 ## Technologies
 
