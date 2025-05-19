@@ -44,7 +44,7 @@ docker compose up --build
 
 **Production mode:**
 ```bash
-docker compose -f docker-compose.yml up -d
+docker compose -f docker-compose.yml up
 ```
 
 ## API Documentation
@@ -76,6 +76,11 @@ After running the project, access the Swagger docs at:
 * Swagger
 * dotenv
 * morgan
+
+## DockerHub
+
+API Image: [inf24dw2g34/moviecritic-api](https://hub.docker.com/repository/docker/inf24dw2g34/moviecritic-api/general)
+Database Image: [inf24dw2g34/moviecritic-db](https://hub.docker.com/repository/docker/inf24dw2g34/moviecritic-db/general) (Contains preloaded data)
 
 ## Team
 * João Bernardo [@jbbernardo7](https://github.com/jbbernardo7)
